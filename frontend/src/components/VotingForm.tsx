@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { AiOutlineCheckCircle } from 'react-icons/ai';
-import { submitVote } from '../services/countryService'; // Import the service
+import { submitVote } from '../services/countryService';
 
 type FormState = {
     name: string;
@@ -38,7 +38,7 @@ export default function VotingForm({ onVoteSubmitted }: { onVoteSubmitted: () =>
         try {
             await submitVote(form.name, form.email, form.country);
             setSubmissionSuccess(true);
-            onVoteSubmitted(); // Call the function to refresh the table
+            onVoteSubmitted();
         } catch (error: any) {
             setSubmissionError(error.response?.data?.message || 'An unexpected error occurred.');
         }
@@ -54,7 +54,7 @@ export default function VotingForm({ onVoteSubmitted }: { onVoteSubmitted: () =>
             ) : (
                 <form onSubmit={handleSubmit} className="flex flex-col gap-4 p-4 bg-white shadow-md rounded-xl font-inter">
                     <p className="text-lg font-bold text-gray-700">Vote your Favourite Country</p>
-                    <div className="flex items-center gap-4">
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-4">
                         <div className="flex flex-col flex-1 relative">
                             <input
                                 type="text"
@@ -97,13 +97,14 @@ export default function VotingForm({ onVoteSubmitted }: { onVoteSubmitted: () =>
                             )}
                         </div>
 
-                        <button
-                            type="submit"
-                            className={`h-full py-2 px-6 rounded-xl transition duration-200 whitespace-nowrap bg-gray-200 text-gray-500 hover:bg-black hover:text-white`}
-                            style={{ height: "calc(100% - 2px)" }}
-                        >
-                            Submit Vote
-                        </button>
+                        <div className="flex items-center h-full">
+                            <button
+                                type="submit"
+                                className={`py-2 px-6 rounded-xl transition duration-200 whitespace-nowrap bg-gray-200 text-gray-500 hover:bg-black hover:text-white`}
+                            >
+                                Submit Vote
+                            </button>
+                        </div>
                     </div>
                     {submissionError && <p className="text-red-500 text-sm mt-4">{submissionError}</p>}
                 </form>

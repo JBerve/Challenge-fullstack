@@ -32,8 +32,8 @@ export default function CountryDisplayTable() {
 
     return (
         <div className="mt-8">
-            <h2 className="text-2xl font-bold mb-4">Top 10 Most Voted Countries</h2>
-            <div className="relative mb-4 w-full max-w-md">
+            <h2 className="text-xl sm:text-2xl font-bold mb-4 text-center sm:text-left">Top 10 Most Voted Countries</h2>
+            <div className="relative mb-4 w-full sm:max-w-md">
                 <AiOutlineSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
                 <input
                     type="text"
@@ -43,7 +43,7 @@ export default function CountryDisplayTable() {
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
             </div>
-            <div className="overflow-hidden shadow-md rounded-xl bg-white">
+            <div className="overflow-x-auto shadow-md rounded-xl bg-white">
                 <table className="min-w-full">
                     <thead>
                     <tr className="text-left">
@@ -57,17 +57,17 @@ export default function CountryDisplayTable() {
                     <tbody>
                     {filteredCountries.length > 0 ? (
                         filteredCountries.map((country, index) => (
-                            <tr key={index}>
-                                <td className="px-4 py-2 text-center">{country.name}</td>
-                                <td className="px-4 py-2 text-center">{country.capital}</td>
-                                <td className="px-4 py-2 text-center">{country.region}</td>
-                                <td className="px-4 py-2 text-center">{country.subregion}</td>
-                                <td className="px-4 py-2 text-center">{country.votes}</td>
+                            <tr key={index} className="hover:bg-gray-100">
+                                <td className="px-4 py-2 text-center text-sm sm:text-base">{country.name}</td>
+                                <td className="px-4 py-2 text-center text-sm sm:text-base">{country.capital}</td>
+                                <td className="px-4 py-2 text-center text-sm sm:text-base">{country.region}</td>
+                                <td className="px-4 py-2 text-center text-sm sm:text-base">{country.subregion}</td>
+                                <td className="px-4 py-2 text-center text-sm sm:text-base">{country.votes}</td>
                             </tr>
                         ))
                     ) : (
                         <tr>
-                            <td className="px-4 py-2 text-center" colSpan={5}>{error || 'No countries found'}</td>
+                            <td className="px-4 py-2 text-center text-sm sm:text-base" colSpan={5}>{error || 'No countries found'}</td>
                         </tr>
                     )}
                     </tbody>
