@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
 import { IUserService } from '../interfaces/IServices/IUserService';
-import userService from '../services/userService';
 
 class UserController {
     private userService: IUserService;
@@ -15,11 +14,17 @@ class UserController {
             const user = await this.userService.createUser(name, email, country);
             res.status(201).json(user);
         } catch (error) {
-            next(error);
+            if (error instanceof Error) {
+                if (error.message === 'This email has already voted.') {
+                    res.status(400).json({ message: error.message });
+                } else {
+                    res.status(400).json({ message: error.message });
+                }
+            } else {
+                res.status(500).json({ message: 'An internal error occurred' });
+            }
         }
     };
 }
 
-const userController = new UserController(userService);
-
-export default userController;
+export default UserController;
