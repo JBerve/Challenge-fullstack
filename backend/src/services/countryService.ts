@@ -36,9 +36,16 @@ class CountryService implements ICountryService {
 
     async getTopFavoriteCountries(): Promise<ICountry[]> {
         const users = await this.userRepository.getAllUsers();
-        console.log(users);
+
+        if (users.length === 0) {
+            return [];
+        }
+
         const countryVotes = this.countCountryVotes(users);
-        console.log(countryVotes);
+
+        if (Object.keys(countryVotes).length === 0) {
+            return [];
+        }
 
         const topCountries = Object.entries(countryVotes)
             .sort(([, a], [, b]) => b - a)

@@ -11,6 +11,11 @@ class CountryController {
     public getTopFavoriteCountries = async (req: Request, res: Response, next: NextFunction) => {
         try {
             const topCountries = await this.countryService.getTopFavoriteCountries();
+
+            if (topCountries.length === 0) {
+                return res.status(200).json({ message: "No votes have been cast yet." });
+            }
+
             res.status(200).json(topCountries);
         } catch (error) {
             if (error instanceof Error) {
