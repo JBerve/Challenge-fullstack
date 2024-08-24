@@ -1,21 +1,29 @@
 import { IUserService } from '../interfaces/IServices/IUserService';
 import { IUser } from '../models/user';
-import userRepository from '../repositories/userRepository';
+import { ICountryService } from '../interfaces/IServices/ICountryService';
+import { IUserRepository } from '../interfaces/IRepositories/IUserRepository';
 
 class UserService implements IUserService {
+    private countryService: ICountryService;
+    private userRepository: IUserRepository;
+
+    constructor(countryService: ICountryService, userRepository: IUserRepository) {
+        this.countryService = countryService;
+        this.userRepository = userRepository;
+    }
+
     async createUser(name: string, email: string, country: string): Promise<IUser> {
-        const existingUser = userRepository.findUserByEmail(email);
+        const existingUser = await this.userRepository.findUserByEmail(email);
         if (existingUser) {
             throw new Error('This email has already voted.');
         }
-
-        //const countryDetails = await getCountryDetails(country);
-        const countryDetails = "";
-        const newUser: IUser = { name, email, favoriteCountry: countryDetails };
-        userRepository.addUser(newUser);
+        
+        const countryDetails = await this.countryService.getCountryDetails(country);
+        const newUser: IUser = { name, email, favoriteCountry: countryDetails.name };
+        await this.userRepository.addUser(newUser);
 
         return newUser;
     }
 }
 
-export default new UserService();
+export default UserService;

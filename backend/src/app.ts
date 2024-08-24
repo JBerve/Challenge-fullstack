@@ -3,6 +3,7 @@ import morgan from 'morgan';
 import helmet from 'helmet';
 import cors from 'cors';
 import userRoutes from './routes/userRoutes';
+import countryRoutes from "./routes/countryRoutes";
 
 const app: Application = express();
 
@@ -12,6 +13,7 @@ app.use(helmet());
 app.use(cors()); 
 
 app.use('/api/users', userRoutes);
+app.use('/api/countries', countryRoutes);
 
 app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
     console.error(err.stack);
