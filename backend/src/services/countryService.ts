@@ -50,7 +50,10 @@ class CountryService implements ICountryService {
         const topCountries = Object.entries(countryVotes)
             .sort(([, a], [, b]) => b - a)
             .slice(0, 10)
-            .map(([countryName]) => this.getCountryDetails(countryName));
+            .map(async ([countryName, votes]) => {
+                const countryDetails = await this.getCountryDetails(countryName);
+                return { ...countryDetails, votes };
+            });
 
         return Promise.all(topCountries);
     }
