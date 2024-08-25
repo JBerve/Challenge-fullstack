@@ -6,10 +6,10 @@ import React, { useState } from "react";
 import Head from "next/head";
 
 export default function Home() {
-    const [refreshKey, setRefreshKey] = useState(0); // Use a number as the key
+    const [refreshKey, setRefreshKey] = useState(0);
 
     const handleVoteSubmitted = () => {
-        setRefreshKey(prevKey => prevKey + 1); // Increment the key to force re-render
+        setRefreshKey(prevKey => prevKey + 1); 
     };
 
     return (
