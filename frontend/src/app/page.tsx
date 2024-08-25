@@ -13,7 +13,7 @@ export default function Home() {
     };
 
     return (
-        <div className="p-4 sm:p-8 min-h-screen bg-gray-100">
+        <div className="px-4 sm:p-8 min-h-screen bg-gray-100">
             <Head>
                 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
             </Head>
