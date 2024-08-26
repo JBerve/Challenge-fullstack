@@ -1,0 +1,63 @@
+{
+	"info": {
+		"_postman_id": "7f6886fc-41ab-4c43-ba69-b79813001819",
+		"name": "Challenge loopstudio",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "34043778",
+		"_collection_link": "https://videominer.postman.co/workspace/Continuum~3661d851-c3be-4877-bd27-2383cee7b892/collection/34043778-7f6886fc-41ab-4c43-ba69-b79813001819?action=share&source=collection_link&creator=34043778"
+	},
+	"item": [
+		{
+			"name": "User populator",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const countries = [",
+							"    'Egypt', 'Germany', 'Spain', 'Italy', 'Portugal', 'Uruguay', ",
+							"    'Argentina', 'Brazil', 'Taiwan', 'Australia', 'New Zealand', 'Japan'",
+							"];",
+							"",
+							"const country = countries[Math.floor(Math.random() * countries.length)];",
+							"",
+							"const iteration = pm.info.iteration;",
+							"const name = `User${iteration}`;",
+							"const email = `user${iteration}@example.com`;",
+							"",
+							"pm.variables.set('name', name);",
+							"pm.variables.set('email', email);",
+							"pm.variables.set('country', country);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"{{name}}\",\n    \"email\": \"{{email}}\",\n    \"country\": \"{{country}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/api/users"
+			},
+			"response": []
+		},
+		{
+			"name": "Countries top 10",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:3000/api/countries"
+			},
+			"response": []
+		}
+	]
+}
