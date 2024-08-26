@@ -1,15 +1,15 @@
 import dotenv from 'dotenv';
-import app from './app';
-import CountryService from "./services/countryService";
-import UserRepository from "./repositories/userRepository";
-import UserService from "./services/userService";
-import UserController from "./controllers/userController";
-import CountryController from "./controllers/countryController";
+import createApp from './app';
 
 dotenv.config();
 
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+createApp().then(app => {
+    app.listen(PORT, () => {
+        console.log(`Server running on port ${PORT}`);
+    });
+    
+}).catch(error => {
+    console.error('Failed to start server:', error);
 });
