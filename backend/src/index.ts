@@ -1,13 +1,15 @@
-import express, { Application } from 'express';
-import countryRoutes from './routes/countryRoutes'; 
+import dotenv from 'dotenv';
+import createApp from './app';
 
-const app: Application = express();
+dotenv.config();
+
 const PORT = process.env.PORT || 3000;
 
-app.use(express.json());
-
-app.use('/api/countries', countryRoutes);
-
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+createApp().then(app => {
+    app.listen(PORT, () => {
+        console.log(`Server running on port ${PORT}`);
+    });
+    
+}).catch(error => {
+    console.error('Failed to start server:', error);
 });
